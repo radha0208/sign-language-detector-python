@@ -50,16 +50,16 @@ python detect.py               # Detects gestures and translates them in real-ti
 ```
 ### 📊 How It Works
 
-Hand Detection → Mediapipe detects hand landmarks from the live webcam feed.
-Feature Extraction → Landmark coordinates are processed and scaled.
-Classification → The trained ML model predicts the corresponding gesture.
-Translation (optional) → The gesture can be translated using Google Translate.
+Hand Detection → Mediapipe detects hand landmarks from the live webcam feed.<br>
+Feature Extraction → Landmark coordinates are processed and scaled.<br>
+Classification → The trained ML model predicts the corresponding gesture.<br>
+Translation (optional) → The gesture can be translated using Google Translate.<br>
 Speech Output → The predicted text is spoken using gTTS and playsound.
 
 ### 🖼️ Sample Outputs
 Here are some sample outputs from the Sign Language Detection System 👇
 
-<p align="center"> <img src="assets/Screenshot 2025-10-30 155738.png" width="45%"> <img src="assets/Screenshot 2025-10-30 155421.png" width="45%"> </p> <p align="center"> <img src="assets/Screenshot 2025-10-30 155352.png" width="45%"> <img src="assets/Screenshot 2025-10-30 155241.png" width="45%"> </p> <p align="center"> <img src="assets/Screenshot 2025-10-30 155224.png" width="45%"> </p>
+<p align="center"> <img src="assets/Screenshot 2025-10-30 155738.png" width="45%"> <br><img src="assets/Screenshot 2025-10-30 155421.png" width="45%"> </p> <p align="center"> <img src="assets/Screenshot 2025-10-30 155352.png" width="45%"><br> <img src="assets/Screenshot 2025-10-30 155241.png" width="45%"> </p> <p align="center"> <img src="assets/Screenshot 2025-10-30 155224.png" width="45%"> </p>
 
 ### 👩‍💻 Author
 Radha (@Radha0208)
