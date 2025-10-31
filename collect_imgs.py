@@ -1,39 +1,77 @@
 import os
-
 import cv2
-
 
 DATA_DIR = './data'
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 
-number_of_classes = 3
-dataset_size = 100
+dataset_size = 100  # default number of images per gesture
 
-cap = cv2.VideoCapture(2)
-for j in range(number_of_classes):
-    if not os.path.exists(os.path.join(DATA_DIR, str(j))):
-        os.makedirs(os.path.join(DATA_DIR, str(j)))
+# Predefined classes
+alpha_classes = [chr(i) for i in range(ord('A'), ord('Z')+1)]
 
-    print('Collecting data for class {}'.format(j))
+cap = cv2.VideoCapture(0)
+if not cap.isOpened():
+    print("Error: Could not open webcam")
+    exit()
 
-    done = False
+def collect_gesture_images(gesture_name, dataset_size=100):
+    gesture_dir = os.path.join(DATA_DIR, gesture_name)
+    os.makedirs(gesture_dir, exist_ok=True)
+    
+    print(f"\nCollecting data for: {gesture_name}")
+    print("Press 'Q' when ready to start...")
+
+    # Wait for user to press Q
     while True:
         ret, frame = cap.read()
-        cv2.putText(frame, 'Ready? Press "Q" ! :)', (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 255, 0), 3,
-                    cv2.LINE_AA)
-        cv2.imshow('frame', frame)
-        if cv2.waitKey(25) == ord('q'):
+        if not ret:
+            continue
+        cv2.putText(frame, 'Ready? Press "Q" to start', (50, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.imshow("Frame", frame)
+        if cv2.waitKey(25) & 0xFF == ord('q'):
             break
 
     counter = 0
-    while counter < dataset_size:
+    while True:
         ret, frame = cap.read()
-        cv2.imshow('frame', frame)
-        cv2.waitKey(25)
-        cv2.imwrite(os.path.join(DATA_DIR, str(j), '{}.jpg'.format(counter)), frame)
+        if not ret:
+            continue
 
+        cv2.imshow("Frame", frame)
+        cv2.imwrite(os.path.join(gesture_dir, f"{counter}.jpg"), frame)
         counter += 1
+
+        key = cv2.waitKey(25) & 0xFF
+        if key == ord('s'):  # press 'S' to stop collecting this gesture
+            print(f"Stopped collecting for {gesture_name}")
+            break
+        if counter >= dataset_size:
+            print(f"Reached default dataset size for {gesture_name}")
+            break
+
+# --- WORD COLLECTION ---
+collect_words = input("Do you want to collect word gestures? (y/n): ").lower()
+if collect_words == 'y':
+    while True:
+        word_name = input("Enter word class name (or 'stop' to end words): ")
+        if word_name.lower() == 'stop':
+            break
+        collect_gesture_images(f"word_{word_name}", dataset_size)
+
+# --- ALPHABET COLLECTION ---
+collect_alpha = input("Do you want to collect alphabet gestures? (y/n): ").lower()
+if collect_alpha == 'y':
+    while True:
+        alpha_letter = input("Enter alphabet letter (or 'stop' to end alphabets): ").upper()
+        if alpha_letter.lower() == 'stop':
+            break
+        if alpha_letter not in alpha_classes:
+            print("Invalid letter, try again.")
+            continue
+        collect_gesture_images(f"alpha_{alpha_letter}", dataset_size)
 
 cap.release()
 cv2.destroyAllWindows()
+print("Data collection complete!")
