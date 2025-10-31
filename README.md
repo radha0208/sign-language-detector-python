@@ -36,3 +36,5 @@ A **real-time Sign Language Detection** system built using **Python, OpenCV, and
 ```bash
 git clone https://github.com/radha0208/sign-language-detector-python.git
 cd sign-language-detector-python
+
+### 2️⃣ Install Requirements
