@@ -36,5 +36,32 @@ A **real-time Sign Language Detection** system built using **Python, OpenCV, and
 ```bash
 git clone https://github.com/radha0208/sign-language-detector-python.git
 cd sign-language-detector-python
-
+```
 ### 2️⃣ Install Requirements
+```bash
+pip install -r requirements.txt
+```
+### 3️⃣ Run the Application
+```bash
+python collect_imgs.py         # Collects real-time images through webcam
+python create_dataset.py       # Creates dataset by extracting Mediapipe landmarks
+python train_classifier.py     # Trains the MLP model
+python detect.py               # Detects gestures and translates them in real-time
+```
+### 📊 How It Works
+
+Hand Detection → Mediapipe detects hand landmarks from the live webcam feed.
+Feature Extraction → Landmark coordinates are processed and scaled.
+Classification → The trained ML model predicts the corresponding gesture.
+Translation (optional) → The gesture can be translated using Google Translate.
+Speech Output → The predicted text is spoken using gTTS and playsound.
+
+### 🖼️ Sample Outputs
+Here are some sample outputs from the Sign Language Detection System 👇
+
+<p align="center"> <img src="assets/Screenshot 2025-10-30 155738.png" width="45%"> <img src="assets/Screenshot 2025-10-30 155421.png" width="45%"> </p> <p align="center"> <img src="assets/Screenshot 2025-10-30 155352.png" width="45%"> <img src="assets/Screenshot 2025-10-30 155241.png" width="45%"> </p> <p align="center"> <img src="assets/Screenshot 2025-10-30 155224.png" width="45%"> </p>
+
+### 👩‍💻 Author
+Radha (@Radha0208)
+
+
